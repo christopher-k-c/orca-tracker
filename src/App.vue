@@ -1,16 +1,27 @@
 <script setup>
 import Header from './components/Header.vue';
-import { ref } from 'vue';
+import { ref, onMounted} from 'vue';
+import { getIncidentSummary } from './api/service'
+
+
+const allIncidents = ref([])
 
 
 
-// State for active tab
+// Button Logic
 const activeTab = ref('interactions')
 // Handler
 const handleTabChange = (tab) => {
   activeTab.value = tab
-
 }
+
+
+// On mount get all incidents
+onMounted(async () => {
+  allIncidents.value = await getIncidentSummary()
+  
+
+})
 
 
 
@@ -24,7 +35,9 @@ const handleTabChange = (tab) => {
 
   <Header
   :activeTab="activeTab"
-  @tab-change="handleTabChange"/>
+  @tab-change="handleTabChange"
+  :interactionCount="allIncidents.length"
+/>
 
 
 
