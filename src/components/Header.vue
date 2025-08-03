@@ -2,6 +2,9 @@
 const props = defineProps({
   activeTab: String,
   interactionCount: Number,
+  passageCount: Number,
+  uneventfulCount: Number,
+
 })
 
 // Emits
@@ -30,7 +33,7 @@ const selectTab = (tab) => {
         :class="{ 'tab-button': true, 'active': activeTab === 'passages' }"
         @click="selectTab('passages')"
       >
-        Uneventful passages ({{ passageCount }})
+        Uneventful passages ({{ uneventfulCount }})
       </button>
       <button
         :class="{ 'tab-button': true, 'active': activeTab === 'comparative' }"
