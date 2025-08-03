@@ -1,21 +1,44 @@
 <script setup>
+const props = defineProps({
+  activeTab: String,
+})
 
+// Emits
+const emit = defineEmits(['tab-change'])
 
-
+// Handler
+const selectTab = (tab) => {
+  emit('tab-change', tab)
+}
 
 
 </script>
 
 <template>
 
-<div class="topbar">
-  <!-- Tab Buttons -->
-  <nav class="tab-buttons">
-    <button class="bartab">Orca Interactions</button>
-    <button class="bartab">Uneventful Passages</button>
-    <button class="bartab">Comparative Data</button>
-  </nav>
-</div>
+  <div class="topbar">
+    <!-- Tab Buttons -->
+    <nav class="tab-buttons">
+      <button 
+      :class="{ 'tab-button': true, 'active': activeTab === 'interactions' }"
+      @click="selectTab('interactions')"
+      >
+        Orca interactions ({{ interactionCount }})
+      </button>
+      <button
+        :class="{ 'tab-button': true, 'active': activeTab === 'passages' }"
+        @click="selectTab('passages')"
+      >
+        Uneventful passages ({{ passageCount }})
+      </button>
+      <button
+        :class="{ 'tab-button': true, 'active': activeTab === 'comparative' }"
+        @click="selectTab('comparative')"
+      >
+        Comparative Data 
+      </button>
+    </nav>
+  </div>
 
   <!-- Search Field -->
   <div class="search-controls">
@@ -37,21 +60,23 @@
   margin-bottom: 10px;
   padding-bottom: -8px;
 }
-.tabbar {
-  display: inline-block;
-  height: 35px;
-  padding: 5px;
-  font-weight: bold;
-}
-.bartab {
-  display: inline-block;
-  margin: 0px 6px 0px 6px;
-  border: 2px solid #003366;
-  border-bottom: 0;
-  border-radius: 6px 6px 0 0;
+
+
+.tab-button {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 10px 15px;
   cursor: pointer;
-  padding: 0 4px 0 4px;
-  background: #ffffff;
+  font-size: 14px;
+  border-radius: 4px 4px 0 0;
+  margin-right: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: #007bff;
+  font-weight: bold;
 }
 
 

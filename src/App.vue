@@ -1,11 +1,18 @@
 <script setup>
-
-
 import Header from './components/Header.vue';
-
 import { ref } from 'vue';
 
-const activeTab = ['interactions']
+
+
+// State for active tab
+const activeTab = ref('interactions')
+// Handler
+const handleTabChange = (tab) => {
+  activeTab.value = tab
+
+}
+
+
 
 
 
@@ -15,9 +22,11 @@ const activeTab = ['interactions']
 
 <template>
 
-  <Header>
+  <Header
+  :activeTab="activeTab"
+  @tab-change="handleTabChange"/>
 
-  </Header>
+
 
 
 
