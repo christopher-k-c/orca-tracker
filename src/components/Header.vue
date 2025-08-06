@@ -20,23 +20,25 @@ const selectTab = (tab) => {
 
 <template>
 
+
+<container class="header-container">  
   <div class="topbar">
     <!-- Tab Buttons -->
     <nav class="tab-buttons">
       <button 
-      :class="{ 'tab-button': true, 'active': activeTab === 'interactions' }"
+      :class="['tab-button', { 'active': activeTab === 'interactions' }]"
       @click="selectTab('interactions')"
       >
         Orca interactions ({{ interactionCount }})
       </button>
       <button
-        :class="{ 'tab-button': true, 'active': activeTab === 'passages' }"
+        :class="['tab-button', { 'active': activeTab === 'passages' }]"
         @click="selectTab('passages')"
       >
         Uneventful passages ({{ uneventfulCount }})
       </button>
       <button
-        :class="{ 'tab-button': true, 'active': activeTab === 'comparative' }"
+        :class="['tab-button', { 'active': activeTab === 'comparative' }]"
         @click="selectTab('comparative')"
       >
         Comparative Data 
@@ -47,10 +49,21 @@ const selectTab = (tab) => {
   <!-- Search Field -->
   <div class="search-controls">
     <div class="date-inputs">
-      <input type="date" name="" id="">
+      <input class="date-input" type="date" id="from-date" v-model="fromDate" @change="performSearch" />
+      <span class="date-input">to</span>
+      <input class="date-input" type="date" id="to-date" v-model="toDate" @change="performSearch" />
     </div>
-    <div class="search-bar"></div>
+    <div class="report-id-input">
+        <label class="report-id" for="report-id">Report ID:</label>
+        <input 
+          type="text" 
+          id="report-id" 
+          placeholder="Inter" 
+        />
+      </div>
   </div>
+
+</container>
 
 
 
@@ -59,9 +72,14 @@ const selectTab = (tab) => {
 
 <style scoped>
 
+.header-container{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
 .topbar {
   border-bottom: 2px solid #003366;
-  margin-bottom: 10px;
   padding-bottom: -8px;
 }
 
@@ -83,5 +101,19 @@ const selectTab = (tab) => {
   font-weight: bold;
 }
 
+.search-controls{
+  display: flex;
+  justify-content:start;
+  flex-wrap: wrap;
+
+}
+
+.date-inputs{
+  margin: 10px 10px 0 0;
+}
+
+.report-id-input{
+  padding: 10px 10px 0 0;
+}
 
 </style>

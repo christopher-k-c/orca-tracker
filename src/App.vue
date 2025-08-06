@@ -22,13 +22,11 @@ const analysisFrameUrl = computed(() => {
 // On mount get all incidents
 onMounted(async () => {
   allIncidents.value = await getIncidentSummary()
+  const reportIds = await getAllIds()
 
-  const uneventfulIds = await getAllIds()
-  const incidentIds = await getAllIds()
+  uneventfulPassages.value = reportIds.reports.uneventful
+  allIncidents.value = reportIds.reports.incident
 
-  uneventfulPassages.value = uneventfulIds.reports.uneventful
-  allIncidents.value = incidentIds.reports.incident
-  // console.log(uneventfulIds)
 })
 
 
@@ -49,7 +47,7 @@ onMounted(async () => {
 
   <main>
 
-    <div v-if="activeTab == 'comparative'">
+    <div v-if="activeTab === 'comparative'">
 
     <ComparativeData :analysisUrl="analysisFrameUrl"/>
     </div>
