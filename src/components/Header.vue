@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from 'vue'
+
 const props = defineProps({
   activeTab: String,
   interactionCount: Number,
@@ -6,6 +8,10 @@ const props = defineProps({
   uneventfulCount: Number,
 
 })
+
+const fromDate = ref('')
+const toDate = ref('')
+const reportId = ref('')
 
 // Emits
 const emit = defineEmits(['tab-change'])
@@ -58,7 +64,9 @@ const selectTab = (tab) => {
         <input 
           type="text" 
           id="report-id" 
-          placeholder="Inter" 
+          placeholder="Enter Report ID" 
+          v-model="reportId"
+          @input="performReportSearch"
         />
       </div>
   </div>
