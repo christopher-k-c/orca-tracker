@@ -13,7 +13,7 @@ const props = defineProps({
 
 <template>
   <div class="comparative-data">
-    <h1>Comparative Data</h1>
+    <h2>Comparative Data</h2>
     <iframe 
       :src="analysisUrl"
       class="analysis-frame"
@@ -35,5 +35,10 @@ const props = defineProps({
   height: 600px;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+.comparative-data h2 {
+  color: black;
+  margin-bottom: 10px;
 }
 </style>

@@ -2,21 +2,32 @@
 import Header from './components/Header.vue';
 import ComparativeData from './components/ComparativeData.vue';
 import { ref, onMounted, computed } from 'vue';
-import { getIncidentSummary, getAllIds} from './api/service'
+import { getSummaryData, getAllIds, getUneventfulPassages} from './api/service'
 import InteractionsList from './components/InteractionsList.vue'
 import DetailsPanel from './components/DetailsPanel.vue';
 import MapView from './components/MapView.vue';
+import PassageList from './components/PassageList.vue';
 
 // Incident/Uneventful ids for counting 
 const allIncidents = ref({})
-const uneventfulPassages = ref([])
+const uneventfulPassages = ref({})
 const showList = ref(false)
 
 // Interaction List Element State
 const selectedIncident = ref(null)
 
+// Passage List Element State
+const selectedPassage = ref(null)
+
+const handleSelectedPassage = (emittedPassage) => {
+  selectedPassage.value = emittedPassage
+  // Clear any selected incident when selecting a passage
+  selectedIncident.value = null
+}
+
 const handleSelectedIncident = (emittedIncident) => {
   selectedIncident.value = emittedIncident
+  selectedPassage.value = null
 }
 
 // Button Logic
@@ -24,7 +35,12 @@ const activeTab = ref('interactions')
 
 // Button Handler function 
 const handleTabChange = (tab) => {
-  activeTab.value = tab
+  if (activeTab.value !== tab) {
+    showList.value = false
+    selectedIncident.value = null
+    selectedPassage.value = null 
+    activeTab.value = tab
+  }
 }
 
 const handleShowList = () => {
@@ -40,18 +56,13 @@ const analysisFrameUrl = computed(() => {
 // On mount get all incidents
 onMounted(async () => {
   try {
-    // console.log('Starting data fetch...')
-    
-    // Get incidents from service (returns object)
-    allIncidents.value = await getIncidentSummary()
-    console.log('All Incidents:', allIncidents.value)
-    console.log('Incidents count:', Object.keys(allIncidents.value).length)
-    
-    // Get uneventful passages
-    const reportIds = await getAllIds()
-    console.log('Report IDs:', reportIds)
-    uneventfulPassages.value = reportIds.reports.uneventful || []
-    console.log('Uneventful passages:', uneventfulPassages.value)
+  
+    let reportData = await getSummaryData()
+
+    uneventfulPassages.value = reportData.uneventful
+    allIncidents.value = reportData.incident
+
+
   } catch (error) {
     console.error('Error loading data:', error)
   }
@@ -66,28 +77,35 @@ onMounted(async () => {
         :activeTab="activeTab"
         @tab-change="handleTabChange"
         @show-list="handleShowList"
-
         :showList="showList"
         :interactionCount="Object.keys(allIncidents).length"
-        :uneventfulCount="uneventfulPassages.length"
+        :uneventfulCount="Object.keys(uneventfulPassages).length"
       />
 
       <main class="main-content">
         <div class="content-area">
-          <InteractionsList v-if="showList" :interactionSummary="allIncidents" @selected-incident="handleSelectedIncident"/>
-
+          <InteractionsList v-if="showList" 
+            :interactionSummary="allIncidents" 
+            @selected-incident="handleSelectedIncident"
+          />
+          <PassageList v-else-if="activeTab === 'passages'" 
+            :passageSummary="uneventfulPassages"
+            @selected-passage="handleSelectedPassage"
+          />
           <div v-else-if="activeTab === 'comparative'">
             <ComparativeData :analysisUrl="analysisFrameUrl"/>
           </div>
           <div v-else>
-            <!-- <h2>{{ activeTab === 'interactions' ? 'Orca Interactions' : 'Uneventful Passages' }}</h2>
-            <p>Click "SHOW LIST" to view interactions</p> -->
             <MapView class="map-view-container"/>
           </div>
         </div>
 
         <div class="details-panel-container">
-          <DetailsPanel :incident="selectedIncident"/>
+          <DetailsPanel 
+            :incident="selectedIncident"
+            :passage="selectedPassage"  
+            :activeTab="activeTab"  
+          />
         </div>
       </main>
       </div>
@@ -130,7 +148,8 @@ onMounted(async () => {
    /* max-width: 500px; */
    background-color: #fff;
    border-left: 1px solid #e0e0e0;
-   box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+   box-shadow: -4px 2px 2px rgba(0, 0, 0, 0.1);
+   border-radius: 8px;
    /* overflow-y: auto; */
  }
 </style>

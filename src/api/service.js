@@ -1,7 +1,7 @@
 import { BASE_URL, API_HEADERS } from '@/config/api'
 
 // Get incident summary
-export const getIncidentSummary = async () => {
+export const getSummaryData = async () => {
   try {
     console.log('API Config:', { BASE_URL, API_HEADERS })
     
@@ -18,9 +18,11 @@ export const getIncidentSummary = async () => {
     
     const summary = await response.json()
     console.log('API Response:', summary)
+
     
-    const incidents = summary.reports.incident;
-    console.log('Incidents data:', incidents)
+    
+    const incidents = summary.reports;
+    // console.log('Incidents data:', incidents)
     
     return incidents
   } catch (error) {
@@ -69,5 +71,34 @@ export const getAllIds = async () => {
     return { reports: { incident: [], uneventful: [] } }
   }
 }
+
+
+
+// Get uneventful passages
+export const getUneventfulPassages = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/uneventfulresponse/${id}`, {
+      method: 'GET',
+      headers: API_HEADERS
+    });
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const uneventful = await response.json()
+    const passage = uneventful.response
+    console.log('Uneventful passages:', uneventful)
+    return passage
+  } catch (error) {
+    console.error('Error fetching uneventful passages:', error)
+    return { reports: { incident: [], uneventful: [] } }
+  }
+}
+
+
+
+
+
 
 

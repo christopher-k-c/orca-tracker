@@ -6,29 +6,49 @@ const props = defineProps({
     incident: {
         type: Object,
         default: null
-    }
+    },
+    activeTab: {
+        type: String,
+        default: 'interactions'
+    },
+    passage: {
+    type: Object,
+    default: null
+  },
 })
 
-// const computedIncident = computed(() => {
-//     return props.incident
-// })
 
-console.log(props)
 console.log(props.incident)
-console.log("Hello")
+
+
 
 </script>
 
 <template>
   <div class="details-panel">
+
+    <template v-if="props.passage">
+        <div class="panel-header">
+            <h3>Passage: {{ props.passage.serial }}</h3>
+        
+        </div>
+
+
+
+
+
+
+
+
+
+    </template>
     <template v-if="props.incident">
       <div class="panel-header">
         <h3>Interaction Date: {{ props.incident.date_of_interaction?.A || 'N/A' }} {{ props.incident.time_of_interaction?.A || 'N/A' }} </h3>
         <!-- <a href="#" class="link-to-report">{{ props.incident.date_of_interaction?.A || 'N/A' }}</a> -->
       </div>
 
-      
-      
+
       <div class="detail-item" v-if="props.incident.antifoul_colour?.Q && props.incident.antifoul_colour?.A">
         <strong>{{ props.incident.antifoul_colour.Q }}</strong>
         <p>{{ props.incident.antifoul_colour.A }}</p>
@@ -200,12 +220,30 @@ console.log("Hello")
       </div>
       
     </template>
+    <template v-else-if="activeTab === 'comparative'">
+        <p class="comparative-text">
+            We are pleased to publish the comparative data, which shows the data received in a total reports received and % format. This enables users to see if there are any noticeable differences in the factors being reported when an ‘interaction’ or ‘uneventful’ passage does or does not occur. These factors include sea state/wind speed, boat speed, day/night, cloud cover, distance off land, sea depth, hull/antifoul colour, type of rudder etc.
 
-    <template v-else>
+At this stage, other than the comparative data, there is insufficient data to make a more detailed analysis to see if clear patterns are emerging of when ‘interactions’ or ‘uneventful passages’ do or do not occur.
+        </p>
+
+    </template>
+
+    <template v-else-if="activeTab === 'passages'">
+      <div class="no-selection">
+        <p>Select an passage from the list to see details.</p>
+      </div>
+    </template>
+    <template v-else-if="activeTab === 'interactions'">
       <div class="no-selection">
         <p>Select an incident from the list to see details.</p>
       </div>
     </template>
+
+
+
+
+    
   </div>
 </template>
 
@@ -216,6 +254,7 @@ console.log("Hello")
   height: 100%;
   /* overflow-y: auto; */
   font-size: 0.9em;
+  border-radius: 8px;
 }
 
 .panel-header {
@@ -223,13 +262,17 @@ console.log("Hello")
   justify-content: space-between;
   align-items: center;
   margin-bottom: 12px;
-  border-bottom: 1px solid #eee;
-  padding-bottom: 8px;
+  /* border-bottom: 1px solid #eee;
+  padding-bottom: 8px; */
+
+  border-bottom: 2px solid #003366;
+  padding-bottom: 10px;
+
 }
 
 .panel-header h3 {
   margin: 0;
-  color: #333;
+  color: #003366;
   font-size: 1.1em;
 }
 
@@ -250,7 +293,7 @@ console.log("Hello")
 }
 
 .detail-item strong {
-  color: #555;
+  color: Black;
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
@@ -262,8 +305,8 @@ console.log("Hello")
   color: #333;
   background-color: #f8f9fa;
   padding: 8px 12px;
-  border-radius: 4px;
-  border-left: 3px solid #007bff;
+  border-radius: 6px;
+  border-left: 3px solid #003366;
 }
 
 .no-selection {
@@ -275,5 +318,18 @@ console.log("Hello")
 
 .no-selection p {
   font-size: 1.1em;
+}
+.comparative-text {
+
+  text-align: center;
+  color: #777;
+  margin-top: 50px;
+  font-style: italic;
+
+
+
+  font-size: 1.1em;
+
+
 }
 </style> 

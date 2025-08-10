@@ -40,6 +40,7 @@ const incidentsArray = computed(() => {
   // console.log(incidents)
   return incidents
 })
+
 </script>
 
 <template>
@@ -53,8 +54,8 @@ const incidentsArray = computed(() => {
         :key="incident.id"
         @click="handleIncidentClick(incident.id)"
       >
-        <h3 class="interaction-serial">Serial: {{ incident.serial }}</h3>
-        <p class="interaction-time">Intereaction Time: {{ incident.time }}</p>
+        <h3 class="interaction-serial">Interaction: {{ incident.serial }}</h3>
+        <p class="interaction-time">{{ incident.time }}</p>
       </div>
     </div>
     
@@ -99,16 +100,19 @@ const incidentsArray = computed(() => {
 }
 
 .interaction-card h3 {
+  padding: 10px 10px 0px 10px;
   margin: 0;
-  color: #333;
+  color: #003366;
   font-size: 16px;
   font-weight: 600;
 }
 
 .interaction-card p {
+  padding: 10px;
   margin: 0;
-  color: #666;
+  color: #003366;
   font-size: 14px;
+  /* font-family: monospace; */
 }
 
 .no-incidents {
@@ -117,11 +121,4 @@ const incidentsArray = computed(() => {
   color: #666;
 }
 
-.interaction-serial {
-  padding: 10px;
-}
-
-.interaction-time {
-  padding: 10px;
-} 
 </style>

@@ -15,7 +15,7 @@ const toDate = ref('')
 const reportId = ref('')
 
 // Emits
-const emit = defineEmits(['tab-change', 'show-list', 'hide-list'])
+const emit = defineEmits(['tab-change', 'show-list'])
 
 // Tab handler
 const selectTab = (tab) => {
@@ -27,9 +27,6 @@ const showList = () => {
   console.log('showList')
 }
 
-const hideList = () => {
-  emit('hide-list')
-}
 </script>
 
 <template>
@@ -59,7 +56,7 @@ const hideList = () => {
     </div>
 
     <!-- Search Field -->
-    <div class="search-controls">
+    <div v-if="activeTab === 'interactions'" class="search-controls">
       <div class="date-inputs">
         <input 
           class="date-input" 
@@ -84,8 +81,8 @@ const hideList = () => {
 
         />
       </div>
-      <button class="show-list-button" @click="showList">
-        {{ showList ? 'SHOW LIST' : 'HIDE LIST' }}
+      <button class="show-list-button" @click="showList" :class="{ 'active': props.showList }" >
+        {{ props.showList ? 'Hide List' : 'Show List' }}
       </button>
     </div>
   </div>
@@ -105,8 +102,10 @@ const hideList = () => {
 }
 
 .tab-button {
-  background-color: #555;
-  color: white;
+  /* background-color: #555;
+  color: white; */
+  background-color: white;
+  color: #003366 ;
   border: none;
   padding: 10px 15px;
   cursor: pointer;
@@ -114,11 +113,13 @@ const hideList = () => {
   border-radius: 4px 4px 0 0;
   margin-right: 5px;
   transition: background-color 0.3s ease;
+  font-weight: bold;
 }
 
 .tab-button.active {
-  background-color: #007bff;
-  font-weight: bold;
+  color: white;
+  background-color: #003366;
+  /* font-weight: bold; */
 }
 
 .search-controls {
@@ -169,32 +170,43 @@ const hideList = () => {
 }
 
 .show-list-button {
-  background-color: #007bff;
+  background-color: #003366;
   color: white;
   border: none;
-  padding: 6px 12px;
+  padding: 5px 11px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease;
+  border: 2px solid #003366;
+  font-weight: bold;
 }
 
 .show-list-button:hover {
   background-color: #5a6268;
+  border: 2px solid #5a6268;
 }
 
-.hide-list-button {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 6px 12px;
+.show-list-button.active {
+
+  background-color: white;
+  color: #003366 ;
+  border: 2px solid #003366;
+  padding: 5px 11px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s ease;
+  font-weight: bold;
+
+}
+.show-list-button.active:hover {
+
+  background-color: #5a6268;
+  border: 2px solid #5a6268;
+  color: white;
+
+
 }
 
-.hide-list-button:hover {
-  background-color: #c82333;
-}
 </style>
