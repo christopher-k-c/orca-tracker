@@ -3,25 +3,31 @@ import { BASE_URL, API_HEADERS } from '@/config/api'
 // Get incident summary
 export const getIncidentSummary = async () => {
   try {
+    console.log('API Config:', { BASE_URL, API_HEADERS })
+    
     const response = await fetch(`${BASE_URL}/reportlist?withdetails=true`, {
       method: 'GET',
       headers: API_HEADERS
     });
+    
+    console.log('Response status:', response.status)
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
     const summary = await response.json()
+    console.log('API Response:', summary)
+    
     const incidents = summary.reports.incident;
-
+    console.log('Incidents data:', incidents)
+    
     return incidents
   } catch (error) {
     console.error('Error fetching incident summary:', error)
-
+    return {}
   }
 }
-
 
 // Get incident details by ID
 export const getAllDetails = async (id) => {
@@ -36,8 +42,8 @@ export const getAllDetails = async (id) => {
     }
     
     const details = await response.json()
-
-    return details // Fixed: was returning 'all' instead of 'summary'
+    const detailsObject = details.response
+    return detailsObject
   } catch (error) {
     console.error('Error fetching incident details:', error)
     return null
@@ -57,11 +63,10 @@ export const getAllIds = async () => {
     }
     
     const reportIds = await response.json()
-
     return reportIds
   } catch (error) {
     console.error('Error fetching uneventful passages:', error)
-
+    return { reports: { incident: [], uneventful: [] } }
   }
 }
 
