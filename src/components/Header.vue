@@ -96,6 +96,7 @@ const hideList = () => {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+
 }
 
 .topbar {

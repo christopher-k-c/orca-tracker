@@ -5,6 +5,7 @@ import { ref, onMounted, computed } from 'vue';
 import { getIncidentSummary, getAllIds} from './api/service'
 import InteractionsList from './components/InteractionsList.vue'
 import DetailsPanel from './components/DetailsPanel.vue';
+import MapView from './components/MapView.vue';
 
 // Incident/Uneventful ids for counting 
 const allIncidents = ref({})
@@ -59,7 +60,9 @@ onMounted(async () => {
 
   <template>
     <div id="app-layout">
+      <div class="app-container">
       <Header
+        class="header-container"
         :activeTab="activeTab"
         @tab-change="handleTabChange"
         @show-list="handleShowList"
@@ -77,8 +80,9 @@ onMounted(async () => {
             <ComparativeData :analysisUrl="analysisFrameUrl"/>
           </div>
           <div v-else>
-            <h2>{{ activeTab === 'interactions' ? 'Orca Interactions' : 'Uneventful Passages' }}</h2>
-            <p>Click "SHOW LIST" to view interactions</p>
+            <!-- <h2>{{ activeTab === 'interactions' ? 'Orca Interactions' : 'Uneventful Passages' }}</h2>
+            <p>Click "SHOW LIST" to view interactions</p> -->
+            <MapView class="map-view-container"/>
           </div>
         </div>
 
@@ -86,20 +90,24 @@ onMounted(async () => {
           <DetailsPanel :incident="selectedIncident"/>
         </div>
       </main>
+      </div>
     </div>
   </template>
 
 <style scoped>
 
 #app-layout {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
+  min-height: 100vh;
   font-family: Arial, sans-serif;
   background-color: #f0f2f5;
+}
+
+.app-container{
+
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px 20px;
+  box-sizing: border-box;
 }
 
  .main-content {
@@ -112,8 +120,9 @@ onMounted(async () => {
  .content-area {
    flex: 1;
    overflow-y: auto;
-   padding: 20px;
+   padding: 0px 20px 20px 0px;
  }
+
 
  .details-panel-container {
    width: 500px;
@@ -122,6 +131,6 @@ onMounted(async () => {
    background-color: #fff;
    border-left: 1px solid #e0e0e0;
    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-   overflow-y: auto;
+   /* overflow-y: auto; */
  }
 </style>
