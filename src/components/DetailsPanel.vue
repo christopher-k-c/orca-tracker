@@ -28,20 +28,156 @@ console.log(props.incident)
   <div class="details-panel">
 
     <template v-if="props.passage">
-        <div class="panel-header">
-            <h3>Passage: {{ props.passage.serial }}</h3>
-        
-        </div>
+    <div class="panel-header">
+        <h3>Passage Date:  {{ props.passage.date_passage_commenced.A}} {{ props.passage.time_passage_commenced.A}}</h3>
+    </div>
 
+    <!-- Passage Details -->
+    <div class="detail-item" v-if="props.passage.antifoul_colour?.Q && props.passage.antifoul_colour?.A">
+        <strong>{{ props.passage.antifoul_colour.Q }}</strong>
+        <p>{{ props.passage.antifoul_colour.A }}</p>
+    </div>
 
+    <div class="detail-item" v-if="props.passage.autopilot?.Q && props.passage.autopilot?.A">
+        <strong>{{ props.passage.autopilot.Q }}</strong>
+        <p>{{ props.passage.autopilot.A }}</p>
+    </div>
 
+    <div class="detail-item" v-if="props.passage.boat_length?.Q && props.passage.boat_length?.A">
+        <strong>{{ props.passage.boat_length.Q }}</strong>
+        <p>{{ props.passage.boat_length.A }}</p>
+    </div>
 
+    <div class="detail-item" v-if="props.passage.boat_type?.Q && props.passage.boat_type?.A">
+        <strong>{{ props.passage.boat_type.Q }}</strong>
+        <p>{{ props.passage.boat_type.A }}</p>
+    </div>
 
+    <div class="detail-item" v-if="props.passage.cloud_cover?.Q && props.passage.cloud_cover?.A">
+        <strong>{{ props.passage.cloud_cover.Q }}</strong>
+        <p>{{ props.passage.cloud_cover.A }}</p>
+    </div>
 
+    <div class="detail-item" v-if="props.passage.darkness_or_daylight?.Q && props.passage.darkness_or_daylight?.A">
+        <strong>{{ props.passage.darkness_or_daylight.Q }}</strong>
+        <p>{{ props.passage.darkness_or_daylight.A }}</p>
+    </div>
 
+    <div class="detail-item" v-if="props.passage.date_passage_commenced?.Q && props.passage.date_passage_commenced?.A">
+        <strong>{{ props.passage.date_passage_commenced.Q }}</strong>
+        <p>{{ props.passage.date_passage_commenced.A }}</p>
+    </div>
 
+    <div class="detail-item" v-if="props.passage.date_passage_ended?.Q && props.passage.date_passage_ended?.A">
+        <strong>{{ props.passage.date_passage_ended.Q }}</strong>
+        <p>{{ props.passage.date_passage_ended.A }}</p>
+    </div>
 
-    </template>
+    <div class="detail-item" v-if="props.passage.depth?.Q && props.passage.depth?.A">
+        <strong>{{ props.passage.depth.Q }}</strong>
+        <p>{{ props.passage.depth.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.depth_gauge?.Q && props.passage.depth_gauge?.A">
+        <strong>{{ props.passage.depth_gauge.Q }}</strong>
+        <p>{{ props.passage.depth_gauge.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.distance_off_land?.Q && props.passage.distance_off_land?.A">
+        <strong>{{ props.passage.distance_off_land.Q }}</strong>
+        <p>{{ props.passage.distance_off_land.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.further_info_edited?.Q && props.passage.further_info_edited?.A">
+        <strong>{{ props.passage.further_info_edited.Q }}</strong>
+        <p>{{ props.passage.further_info_edited.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.hull_topsides_colour?.Q && props.passage.hull_topsides_colour?.A">
+        <strong>{{ props.passage.hull_topsides_colour.Q }}</strong>
+        <p>{{ props.passage.hull_topsides_colour.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.length_of_passage?.Q && props.passage.length_of_passage?.A">
+        <strong>{{ props.passage.length_of_passage.Q }}</strong>
+        <p>{{ props.passage.length_of_passage.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.moon?.Q && props.passage.moon?.A">
+        <strong>{{ props.passage.moon.Q }}</strong>
+        <p v-html="props.passage.moon.A"></p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.motoring_or_sailing?.Q && props.passage.motoring_or_sailing?.A">
+        <strong>{{ props.passage.motoring_or_sailing.Q }}</strong>
+        <p>{{ props.passage.motoring_or_sailing.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.orcas_seen_or_not_select?.Q && props.passage.orcas_seen_or_not_select?.A">
+        <strong>{{ props.passage.orcas_seen_or_not_select.Q }}</strong>
+        <p>{{ props.passage.orcas_seen_or_not_select.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.precautions_taken_edited?.Q && props.passage.precautions_taken_edited?.A">
+        <strong>{{ props.passage.precautions_taken_edited.Q }}</strong>
+        <p>{{ props.passage.precautions_taken_edited.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.rudder?.Q && props.passage.rudder?.A">
+        <strong>{{ props.passage.rudder.Q }}</strong>
+        <p>{{ props.passage.rudder.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.sea_state?.Q && props.passage.sea_state?.A">
+        <strong>{{ props.passage.sea_state.Q }}</strong>
+        <p>{{ props.passage.sea_state.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.speed?.Q && props.passage.speed?.A">
+        <strong>{{ props.passage.speed.Q }}</strong>
+        <p>{{ props.passage.speed.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.tide?.Q && props.passage.tide?.A">
+        <strong>{{ props.passage.tide.Q }}</strong>
+        <p>{{ props.passage.tide.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.time_passage_commenced?.Q && props.passage.time_passage_commenced?.A">
+        <strong>{{ props.passage.time_passage_commenced.Q }}</strong>
+        <p>{{ props.passage.time_passage_commenced.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.time_passage_ended?.Q && props.passage.time_passage_ended?.A">
+        <strong>{{ props.passage.time_passage_ended.Q }}</strong>
+        <p>{{ props.passage.time_passage_ended.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.trailing?.Q && props.passage.trailing?.A">
+        <strong>{{ props.passage.trailing.Q }}</strong>
+        <p>{{ props.passage.trailing.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.trailing_fishing_lure?.Q && props.passage.trailing_fishing_lure?.A">
+        <strong>{{ props.passage.trailing_fishing_lure.Q }}</strong>
+        <p>{{ props.passage.trailing_fishing_lure.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.where_passage_commenced?.Q && props.passage.where_passage_commenced?.A">
+        <strong>{{ props.passage.where_passage_commenced.Q }}</strong>
+        <p>{{ props.passage.where_passage_commenced.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.where_passage_ended?.Q && props.passage.where_passage_ended?.A">
+        <strong>{{ props.passage.where_passage_ended.Q }}</strong>
+        <p>{{ props.passage.where_passage_ended.A }}</p>
+    </div>
+
+    <div class="detail-item" v-if="props.passage.wind_speed?.Q && props.passage.wind_speed?.A">
+        <strong>{{ props.passage.wind_speed.Q }}</strong>
+        <p>{{ props.passage.wind_speed.A }}</p>
+    </div>
+</template>
     <template v-if="props.incident">
       <div class="panel-header">
         <h3>Interaction Date: {{ props.incident.date_of_interaction?.A || 'N/A' }} {{ props.incident.time_of_interaction?.A || 'N/A' }} </h3>

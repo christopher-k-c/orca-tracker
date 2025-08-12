@@ -1,7 +1,7 @@
 <script setup>
 import Header from './components/Header.vue';
 import ComparativeData from './components/ComparativeData.vue';
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { getSummaryData, getAllIds, getUneventfulPassages} from './api/service'
 import InteractionsList from './components/InteractionsList.vue'
 import DetailsPanel from './components/DetailsPanel.vue';
@@ -19,6 +19,8 @@ const selectedIncident = ref(null)
 // Passage List Element State
 const selectedPassage = ref(null)
 
+// Comparative Data Element State
+const analysisFrameUrl = ref(null)
 const handleSelectedPassage = (emittedPassage) => {
   selectedPassage.value = emittedPassage
   // Clear any selected incident when selecting a passage
@@ -48,20 +50,25 @@ const handleShowList = () => {
   showList.value = !showList.value // Toggle between true/false
 }
 
+const urlFunc = () => {
+  analysisFrameUrl.value = `https://www.theca.org.uk/prj/orcasurvey/analysis.php?lang=en`
+}
+
 // Analysis Url/Comparative Data rendered via PHP 
-const analysisFrameUrl = computed(() => {
-  return `https://www.theca.org.uk/prj/orcasurvey/analysis.php?lang=en`
-})
+// const analysisFrameUrl = computed(() => {
+//   return `https://www.theca.org.uk/prj/orcasurvey/analysis.php?lang=en`
+// })
 
 // On mount get all incidents
 onMounted(async () => {
   try {
+    urlFunc()
   
     let reportData = await getSummaryData()
 
     uneventfulPassages.value = reportData.uneventful
     allIncidents.value = reportData.incident
-
+    console.log(reportData)
 
   } catch (error) {
     console.error('Error loading data:', error)
@@ -72,6 +79,7 @@ onMounted(async () => {
   <template>
     <div id="app-layout">
       <div class="app-container">
+        <!-- App navigation bar, includes date inputs, search bar and list button --> 
       <Header
         class="header-container"
         :activeTab="activeTab"
@@ -84,22 +92,27 @@ onMounted(async () => {
 
       <main class="main-content">
         <div class="content-area">
-          <InteractionsList v-if="showList" 
-            :interactionSummary="allIncidents" 
-            @selected-incident="handleSelectedIncident"
-          />
-          <PassageList v-else-if="activeTab === 'passages'" 
-            :passageSummary="uneventfulPassages"
-            @selected-passage="handleSelectedPassage"
-          />
-          <div v-else-if="activeTab === 'comparative'">
-            <ComparativeData :analysisUrl="analysisFrameUrl"/>
-          </div>
-          <div v-else>
-            <MapView class="map-view-container"/>
-          </div>
-        </div>
 
+            <InteractionsList v-if="showList" 
+              :interactionSummary="allIncidents" 
+              @selected-incident="handleSelectedIncident"
+            />
+
+            <PassageList v-else-if="activeTab === 'passages'" 
+              :passageSummary="uneventfulPassages"
+              @selected-passage="handleSelectedPassage"
+            />
+
+            <ComparativeData v-else-if="activeTab === 'comparative'" 
+              :analysisUrl="analysisFrameUrl"
+            />
+
+            <MapView v-else 
+              class="map-view-container"
+            />
+
+        </div>
+      
         <div class="details-panel-container">
           <DetailsPanel 
             :incident="selectedIncident"

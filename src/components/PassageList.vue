@@ -13,12 +13,15 @@ const emit = defineEmits(['selected-passage'])
 
 const handlePassageClick = async (passage) => {
     const details = await getUneventfulPassages(passage.id)
-    emit('selected-passage', passage)
+    emit('selected-passage', details)  // Emit 'details' instead of 'passage'
+    // return details
+    return details
+console.log(details)
 }
 
 // Convert the object to an array for easy looping
 const passagesArray = computed(() => {
-  return Object.entries(props.passageSummary).map(([id, passage]) => ({
+    let passagesPleaseWork = Object.entries(props.passageSummary).map(([id, passage]) => ({
     id: id,
     serial: passage.serial,
     timeStart: passage.time_start,
@@ -30,7 +33,7 @@ const passagesArray = computed(() => {
     const serialB = parseInt(b.serial);
     return serialB - serialA;
   })
-  return passagesArray
+  return passagesPleaseWork
 })
 
 
