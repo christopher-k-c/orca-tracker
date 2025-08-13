@@ -12,7 +12,6 @@ const props = defineProps({
 const emit = defineEmits(['selected-incident'])
 
 const handleIncidentClick = async (id) => {
-  // console.log(id)
   const details = await getAllDetails(id)
   console.log("test",details)
   // if (details.status === 'OK') {
@@ -26,7 +25,7 @@ const incidentsArray = computed(() => {
   if (!props.interactionSummary || typeof props.interactionSummary !== 'object') {
     return []
   }
-  
+
   let incidents = Object.entries(props.interactionSummary).map(([id, incident]) => ({
     id: id,
     serial: incident.serial,

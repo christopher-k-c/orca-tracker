@@ -2,7 +2,7 @@
 import Header from './components/Header.vue';
 import ComparativeData from './components/ComparativeData.vue';
 import { ref, onMounted } from 'vue';
-import { getSummaryData, getAllIds, getUneventfulPassages} from './api/service'
+import { getSummaryData, getAllIds, getUneventfulPassages, getAllDetails} from './api/service'
 import InteractionsList from './components/InteractionsList.vue'
 import DetailsPanel from './components/DetailsPanel.vue';
 import MapView from './components/MapView.vue';
@@ -68,7 +68,14 @@ onMounted(async () => {
 
     uneventfulPassages.value = reportData.uneventful
     allIncidents.value = reportData.incident
-    console.log(reportData)
+    // console.log(reportData)
+
+    // let test = await getAllDetails(13707)
+    // let testtwo = await getAllDetails(8709)
+    
+    
+    // console.log(test)
+    // console.log(testtwo)
 
   } catch (error) {
     console.error('Error loading data:', error)
