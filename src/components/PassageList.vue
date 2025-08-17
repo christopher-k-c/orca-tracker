@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
-import { getUneventfulPassages } from '../api/service'
+// Get individual details for each passage 
+import { getPassageDetails } from '../api/service'
 
 const props = defineProps({
   passageSummary: {
@@ -12,11 +13,8 @@ const props = defineProps({
 const emit = defineEmits(['selected-passage'])
 
 const handlePassageClick = async (passage) => {
-    const details = await getUneventfulPassages(passage.id)
+    const details = await getPassageDetails(passage.id)
     emit('selected-passage', details)  // Emit 'details' instead of 'passage'
-    // return details
-    return details
-console.log(details)
 }
 
 // Convert the object to an array for easy looping

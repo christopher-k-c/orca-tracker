@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
-import { getAllDetails } from '../api/service'
+// Get individual details for each incident 
+import { getIncidentDetails } from '../api/service'
 
 const props = defineProps({
   interactionSummary: {
@@ -12,7 +13,7 @@ const props = defineProps({
 const emit = defineEmits(['selected-incident'])
 
 const handleIncidentClick = async (id) => {
-  const details = await getAllDetails(id)
+  const details = await getIncidentDetails(id)
   console.log("test",details)
   // if (details.status === 'OK') {
     emit('selected-incident', details)

@@ -1,16 +1,19 @@
 import { BASE_URL, API_HEADERS } from '@/config/api'
+import { ref, readonly } from 'vue'
+
 
 // Get incident summary
 export const getSummaryData = async () => {
+  
   try {
-    console.log('API Config:', { BASE_URL, API_HEADERS })
+    // console.log('API Config:', { BASE_URL, API_HEADERS })
     
     const response = await fetch(`${BASE_URL}/reportlist?withdetails=true`, {
       method: 'GET',
       headers: API_HEADERS
     });
     
-    console.log('Response status:', response.status)
+    // console.log('Response status:', response.status)
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -31,8 +34,10 @@ export const getSummaryData = async () => {
   }
 }
 
+// Combine summary and details function into one by passing endpint in 
+
 // Get incident details by ID
-export const getAllDetails = async (id) => {
+export const getIncidentDetails = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/incidentresponse/${id}`, {
       method: 'GET',
@@ -52,30 +57,9 @@ export const getAllDetails = async (id) => {
   }
 }
 
-// Get uneventful passages
-export const getAllIds = async () => {
-  try {
-    const response = await fetch(`${BASE_URL}/reportlist`, {
-      method: 'GET',
-      headers: API_HEADERS
-    });
-    
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    
-    const reportIds = await response.json()
-    return reportIds
-  } catch (error) {
-    console.error('Error fetching uneventful passages:', error)
-    return { reports: { incident: [], uneventful: [] } }
-  }
-}
-
-
 
 // Get uneventful passages
-export const getUneventfulPassages = async (id) => {
+export const getPassageDetails = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/uneventfulresponse/${id}`, {
       method: 'GET',

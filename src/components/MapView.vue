@@ -58,11 +58,15 @@ onUnmounted(() => {
   width: 100%;
   position: relative;
   height: 80vh; 
+  /* Prevent scrolling */
+  overflow: hidden;
 }
 
 #map-element {
   height: 100%;
   width: 100%;
   height: 80vh; 
+  /* Prevent scrolling */
+  overflow: hidden;
 }
 </style>

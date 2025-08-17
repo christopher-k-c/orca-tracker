@@ -6,26 +6,31 @@ const props = defineProps({
   interactionCount: Number,
   passageCount: Number,
   uneventfulCount: Number,
-  showList: Boolean, // Add this prop
+  // showList: Boolean, // Add this prop
 })
 
 // Search form state (keeping your current approach)
-const fromDate = ref('')
-const toDate = ref('')
-const reportId = ref('')
+// const fromDate = ref('')
+// const toDate = ref('')
+// const reportId = ref('')
 
 // Emits
-const emit = defineEmits(['tab-change', 'show-list'])
+// const emit = defineEmits(['tab-change', 'show-list'])
+const emit = defineEmits(['tab-change'])
 
 // Tab handler
 const selectTab = (tab) => {
   emit('tab-change', tab)
 }
 
-const showList = () => {
-  emit('show-list')
-  console.log('showList')
-}
+// const showList = () => {
+//   emit('show-list')
+//   console.log('Header: show-list emitted') // Add this debug log
+// }
+
+// const handleDateChange = (date) => {
+//   console.log()
+// }
 
 </script>
 
@@ -56,12 +61,14 @@ const showList = () => {
     </div>
 
     <!-- Search Field -->
-    <div v-if="activeTab === 'interactions'" class="search-controls">
+    <!-- <div v-if="activeTab === 'interactions'" class="search-controls">
       <div class="date-inputs">
         <input 
           class="date-input" 
           type="date" 
           id="from-date" 
+          @input="handleDateChange"
+          v-model="selectedDate"
 
         />
         <span class="date-separator">to</span>
@@ -84,7 +91,7 @@ const showList = () => {
       <button class="show-list-button" @click="showList" :class="{ 'active': props.showList }" >
         {{ props.showList ? 'Hide List' : 'Show List' }}
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -121,7 +128,7 @@ const showList = () => {
   background-color: #003366;
   /* font-weight: bold; */
 }
-
+/* 
 .search-controls {
   display: flex;
   justify-content: start;
@@ -207,6 +214,6 @@ const showList = () => {
   color: white;
 
 
-}
+} */
 
 </style>
