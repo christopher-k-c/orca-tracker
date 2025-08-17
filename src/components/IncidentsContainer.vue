@@ -9,20 +9,39 @@ import IncidentsList from './IncidentsList.vue'
 
 const props = defineProps({
     interactionSummary: Object, // Add this prop
+    dateFilters:{
+      type: Object,
+      default: () => ({})
+    }
 })
+
+let test = Object.values(props.interactionSummary)
+console.log(test)
 
 // Manage showList state local to Interactions Container 
 const showList = ref(false)
 
 const handleShowList = () => {
-  console.log('toggle list')
-  showList.value = !showList.value // Toggle between true/false
+  showList.value = !showList.value 
 }
 
-const emit = defineEmits(['selected-incident']) // Add this emit
+const emit = defineEmits(['selected-incident', 'date-filter-update', 'clear-filters']) 
 
 const handleSelectedIncident = (incident) => {
   emit('selected-incident', incident)
+}
+
+const handleDateFilterUpdate = (filters) => {
+  emit('date-filter-update', filters)
+}
+
+
+const handleMarkerClicked = (incidentData) => {
+  emit('selected-incident', incidentData)
+}
+
+const handleClearFilters = () => {
+  emit('clear-filters')
 }
 
 </script>
@@ -34,6 +53,9 @@ const handleSelectedIncident = (incident) => {
         <MapInputs 
             @show-list="handleShowList"
             :showList="showList"
+            :dateFilters="dateFilters"
+            @date-filter-update="handleDateFilterUpdate"
+            @clear-filters="handleClearFilters"
         />
         
         <!-- IncidentsList shows when showList is true -->
@@ -46,7 +68,8 @@ const handleSelectedIncident = (incident) => {
         <!-- MapView shows when showList is false -->
         <MapView 
             v-show="!showList"
-            :incidents="interactionSummary"
+            :interactionSummary="interactionSummary"
+            @marker-clicked="handleMarkerClicked"
         />
     </div>
 </template>

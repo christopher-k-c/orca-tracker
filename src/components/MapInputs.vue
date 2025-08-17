@@ -1,20 +1,66 @@
 
 
 <script setup>
+import {ref, watch, computed} from 'vue'
 
 const props = defineProps({
   showList: Boolean,
+  dateFilters: {
+    type: Object,
+    default: () => ({})
+  }
 })
 
-const emit = defineEmits(['show-list'])
+const emit = defineEmits(['show-list', 'date-filter-update', 'clear-filters'])
 
-
-const showList = () => {
+const handleShowList = () => {
   emit('show-list')
   console.log('showList')
 }
 
+// Local state for inputs
+const localFilters = ref({
+  fromDate: '',
+  toDate: '',
+  reportId: ''
+})
 
+// Watch for prop changes and sync local state
+watch(() => props.dateFilters, (newFilters) => {
+  localFilters.value = { ...newFilters }
+}, { deep: true, immediate: true })
+
+// Handle date changes
+const handleFromDateChange = (event) => {
+  localFilters.value.fromDate = event.target.value
+  updateFilters()
+}
+
+const handleToDateChange = (event) => {
+  localFilters.value.toDate = event.target.value
+  updateFilters()
+}
+
+const handleReportIdChange = (event) => {
+  localFilters.value.reportId = event.target.value
+  updateFilters()
+}
+
+// Update filters and emit to parent
+const updateFilters = () => {
+  emit('date-filter-update', localFilters.value)
+}
+
+const hasActiveFilters = computed(() => {
+  return props.dateFilters.fromDate || 
+         props.dateFilters.toDate || 
+         props.dateFilters.reportId
+})
+
+
+const clearFilters = () => {
+  emit('clear-filters')
+}
 </script>
 
 <template> 
@@ -25,6 +71,8 @@ const showList = () => {
       class="date-input" 
       type="date" 
       id="from-date" 
+      v-model="localFilters.fromDate"
+      @change="handleFromDateChange"
 
 
     />
@@ -33,7 +81,8 @@ const showList = () => {
       class="date-input" 
       type="date" 
       id="to-date" 
-
+      v-model="localFilters.toDate"
+      @change="handleToDateChange"
     />
   </div>
   <div class="report-id-input">
@@ -42,12 +91,18 @@ const showList = () => {
       type="text" 
       id="report-id" 
       placeholder="Enter Report ID" 
-
+      v-model="localFilters.reportId"
+      @change="handleReportIdChange"
     />
   </div>
-  <button class="show-list-button" @click="showList" :class="{ 'active': props.showList }" >
-    {{ props.showList ? 'Hide List' : 'Show List' }}
+  <button class="show-list-button" @click="handleShowList" :class="{ 'active': props.showList }" >
+    {{ props.showList ? 'Show Map' : 'Show List' }}
   </button>
+
+  <button class="clear-list-button" @click="clearFilters" :class="{'hidden': !hasActiveFilters, 'active': hasActiveFilters}" >
+    Clear Filters
+  </button>
+
 </div>
 </template>
 
@@ -139,6 +194,32 @@ const showList = () => {
   color: white;
 
 
+}
+
+.clear-list-button.active {
+
+background-color: white;
+color: #003366 ;
+border: 2px solid #003366;
+padding: 5px 11px;
+border-radius: 4px;
+cursor: pointer;
+font-size: 14px;
+transition: background-color 0.3s ease;
+font-weight: bold;
+
+}
+.clear-list-button.active:hover {
+
+background-color: #5a6268;
+border: 2px solid #5a6268;
+color: white;
+
+
+}
+
+.clear-list-button.hidden {
+  display: none;
 }
 
 </style>

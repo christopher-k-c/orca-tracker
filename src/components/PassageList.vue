@@ -10,11 +10,14 @@ const props = defineProps({
   }
 })
 
+// let test = Object.values(props.passageSummary).map(incident => {console.log(incident)})/
+console.log(props.passageSummary)
+
 const emit = defineEmits(['selected-passage'])
 
 const handlePassageClick = async (passage) => {
     const details = await getPassageDetails(passage.id)
-    emit('selected-passage', details)  // Emit 'details' instead of 'passage'
+    emit('selected-passage', details)  
 }
 
 // Convert the object to an array for easy looping
@@ -33,9 +36,6 @@ const passagesArray = computed(() => {
   })
   return passagesPleaseWork
 })
-
-
-
 
 </script>
 
@@ -149,7 +149,6 @@ const passagesArray = computed(() => {
 .time-value {
   color: #003366;
   font-size: 14px;
-  /* font-family: monospace; */
-  /*  */
+
 }
 </style>

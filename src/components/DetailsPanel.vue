@@ -15,6 +15,8 @@ const props = defineProps({
   },
 })
 
+console.log(props.incident)
+
 </script>
 
 <template>
@@ -81,7 +83,7 @@ const props = defineProps({
 .details-panel {
   padding: 15px;
   background-color: #fff;
-  height: 100%;
+  height: 100vh;
   font-size: 0.9em;
   border-radius: 8px;
 }

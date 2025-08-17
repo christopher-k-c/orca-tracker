@@ -35,7 +35,7 @@ const incidentsArray = computed(() => {
   .sort((a, b) => {
     const serialA = parseInt(a.serial);
     const serialB = parseInt(b.serial);
-    return serialB - serialA; // Sort in descending order (highest serial first)
+    return serialB - serialA; 
   })
   // console.log(incidents)
   return incidents
@@ -45,7 +45,7 @@ const incidentsArray = computed(() => {
 
 <template>
   <div class="interactions-list">
-    <!-- <h1>Interactions List</h1> -->
+
     
     <div v-if="incidentsArray.length" class="incidents-container">
       <div 
@@ -66,9 +66,7 @@ const incidentsArray = computed(() => {
 </template>
 
 <style scoped>
-.interactions-list {
-  /* padding: 0px; */
-}
+
 
 .incidents-container {
   display: flex;

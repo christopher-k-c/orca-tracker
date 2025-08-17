@@ -1,36 +1,19 @@
 <script setup>
-import { ref } from 'vue'
+
 
 const props = defineProps({
   activeTab: String,
   interactionCount: Number,
   passageCount: Number,
   uneventfulCount: Number,
-  // showList: Boolean, // Add this prop
 })
 
-// Search form state (keeping your current approach)
-// const fromDate = ref('')
-// const toDate = ref('')
-// const reportId = ref('')
-
-// Emits
-// const emit = defineEmits(['tab-change', 'show-list'])
 const emit = defineEmits(['tab-change'])
 
 // Tab handler
 const selectTab = (tab) => {
   emit('tab-change', tab)
 }
-
-// const showList = () => {
-//   emit('show-list')
-//   console.log('Header: show-list emitted') // Add this debug log
-// }
-
-// const handleDateChange = (date) => {
-//   console.log()
-// }
 
 </script>
 
@@ -59,39 +42,6 @@ const selectTab = (tab) => {
         </button>
       </nav>
     </div>
-
-    <!-- Search Field -->
-    <!-- <div v-if="activeTab === 'interactions'" class="search-controls">
-      <div class="date-inputs">
-        <input 
-          class="date-input" 
-          type="date" 
-          id="from-date" 
-          @input="handleDateChange"
-          v-model="selectedDate"
-
-        />
-        <span class="date-separator">to</span>
-        <input 
-          class="date-input" 
-          type="date" 
-          id="to-date" 
-
-        />
-      </div>
-      <div class="report-id-input">
-        <label class="report-id-label" for="report-id">Report ID:</label>
-        <input 
-          type="text" 
-          id="report-id" 
-          placeholder="Enter Report ID" 
-
-        />
-      </div>
-      <button class="show-list-button" @click="showList" :class="{ 'active': props.showList }" >
-        {{ props.showList ? 'Hide List' : 'Show List' }}
-      </button>
-    </div> -->
   </div>
 </template>
 
@@ -128,92 +78,4 @@ const selectTab = (tab) => {
   background-color: #003366;
   /* font-weight: bold; */
 }
-/* 
-.search-controls {
-  display: flex;
-  justify-content: start;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 15px;
-  padding: 10px 0;
-}
-
-.date-inputs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.date-input {
-  padding: 6px 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
-.date-separator {
-  color: #666;
-  font-size: 14px;
-}
-
-.report-id-input {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.report-id-label {
-  font-size: 14px;
-  color: #333;
-  white-space: nowrap;
-}
-
-.report-id-input input {
-  padding: 6px 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  min-width: 120px;
-}
-
-.show-list-button {
-  background-color: #003366;
-  color: white;
-  border: none;
-  padding: 5px 11px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-  border: 2px solid #003366;
-  font-weight: bold;
-}
-
-.show-list-button:hover {
-  background-color: #5a6268;
-  border: 2px solid #5a6268;
-}
-
-.show-list-button.active {
-
-  background-color: white;
-  color: #003366 ;
-  border: 2px solid #003366;
-  padding: 5px 11px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
-  font-weight: bold;
-
-}
-.show-list-button.active:hover {
-
-  background-color: #5a6268;
-  border: 2px solid #5a6268;
-  color: white;
-
-
-} */
-
 </style>
