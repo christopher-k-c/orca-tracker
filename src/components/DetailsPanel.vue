@@ -83,10 +83,20 @@ console.log(props.incident)
 .details-panel {
   padding: 15px;
   background-color: #fff;
-  height: 100vh;
+  height: 100%; 
   font-size: 0.9em;
   border-radius: 8px;
+  overflow-y: auto; 
+
+    
+
 }
+
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari, Edge) */
+/* .details-panel::-webkit-scrollbar {
+  display: thin;
+} */
 
 .panel-header {
   display: flex;

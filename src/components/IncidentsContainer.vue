@@ -8,7 +8,7 @@ import MapInputs from './MapInputs.vue'
 import IncidentsList from './IncidentsList.vue'
 
 const props = defineProps({
-    interactionSummary: Object, // Add this prop
+    interactionSummary: Object,
     dateFilters:{
       type: Object,
       default: () => ({})
@@ -80,7 +80,7 @@ const handleClearFilters = () => {
   height: 100%;
   width: 100%;
   position: relative;
-  /* Prevent scrolling */
+
   overflow: hidden;
 }
 

@@ -90,8 +90,6 @@ onMounted(async () => {
 
   <template>
     <div id="app-layout">
-      <div class="app-container">
-
       <Header
         class="header-container"
         :activeTab="activeTab"
@@ -99,42 +97,38 @@ onMounted(async () => {
         :interactionCount="Object.keys(allIncidents).length"
         :uneventfulCount="Object.keys(uneventfulPassages).length"
       />
+      <div class="app-container">
+        <main class="main-content">
+          <div class="content-area">
+            <IncidentsContainer v-show="activeTab === 'interactions'" 
+              :interactionSummary="filteredIncidents"
+              :activeTab="activeTab"
+              :dateFilters="dateFilters"
+              @selected-incident="handleSelectedIncident"
+              @date-filter-update="handleDateFilterUpdate"
+              @clear-filters="handleClearFilters"
+            />
 
-      <main class="main-content">
+            <PassageList v-show="activeTab === 'passages'" 
+              :passageSummary="uneventfulPassages"
+              @selected-passage="handleSelectedPassage"
+            />
 
-        <div class="content-area">
+            <ComparativeData v-show="activeTab === 'comparative'" 
+              :analysisUrl="analysisFrameUrl"
+            />
 
-          <IncidentsContainer v-show="activeTab === 'interactions'" 
-            :interactionSummary="filteredIncidents"
-            :activeTab="activeTab"
-            :dateFilters="dateFilters"
-            @selected-incident="handleSelectedIncident"
-            @date-filter-update="handleDateFilterUpdate"
-            @clear-filters="handleClearFilters"
-          />
+          </div>
+        
+          <div class="details-panel-container">
 
-          <PassageList v-show="activeTab === 'passages'" 
-            :passageSummary="uneventfulPassages"
-            @selected-passage="handleSelectedPassage"
-            
-          />
-
-          <ComparativeData v-show="activeTab === 'comparative'" 
-            :analysisUrl="analysisFrameUrl"
-          />
-
-        </div>
-      
-        <div class="details-panel-container">
-
-          <DetailsPanel 
-            :incident="selectedIncident"
-            :passage="selectedPassage"  
-            :activeTab="activeTab"   
-          />
-          
-        </div>
-      </main>
+            <DetailsPanel 
+              :incident="selectedIncident"
+              :passage="selectedPassage"  
+              :activeTab="activeTab"   
+            />
+          </div>
+        </main>
       </div>
     </div>
   </template>
@@ -142,20 +136,29 @@ onMounted(async () => {
 <style scoped>
 
 #app-layout {
-  min-height: 100vh;
+
   font-family: Arial, sans-serif;
   background-color: #f0f2f5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #f0f2f5;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 .app-container{
 
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 20px 20px;
-  box-sizing: border-box;
+  display: flex;
+  flex: 1;
+  gap: 20px;
+  min-height: 0; 
 }
 
  .main-content {
+
    display: flex;
    flex-grow: 1;
    overflow: hidden;
@@ -163,19 +166,21 @@ onMounted(async () => {
  }
 
  .content-area {
-   flex: 1;
-
+   
+  flex: 1;
    overflow: hidden;
-   padding: 0px 20px 20px 0px;
+   padding: 0px 20px 0px 0px;
+   /* border-radius: 8px; */
  }
 
 
  .details-panel-container {
-   width: 500px;
 
+   width: 500px;
+   height: 100%;
    background-color: #fff;
    border-left: 1px solid #e0e0e0;
-   box-shadow: -4px 2px 2px rgba(0, 0, 0, 0.1);
+   /* box-shadow: -4px 2px 2px rgba(0, 0, 0, 0.1); */
    border-radius: 8px;
 
  }

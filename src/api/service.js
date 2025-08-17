@@ -4,7 +4,7 @@ import { ref, readonly } from 'vue'
 
 // Get incident summary
 export const getSummaryData = async () => {
-  
+
   try {
     // console.log('API Config:', { BASE_URL, API_HEADERS })
     
@@ -20,13 +20,10 @@ export const getSummaryData = async () => {
     }
     
     const summary = await response.json()
-    console.log('API Response:', summary)
 
-    
-    
-    const incidents = summary.reports;
-    // console.log('Incidents data:', incidents)
-    
+
+
+    const incidents = summary.reports;    
     return incidents
   } catch (error) {
     console.error('Error fetching incident summary:', error)
@@ -52,7 +49,7 @@ export const getIncidentDetails = async (id) => {
     const detailsObject = details.response
     return detailsObject
   } catch (error) {
-    console.error('Error fetching incident details:', error)
+
     return null
   }
 }
@@ -72,10 +69,10 @@ export const getPassageDetails = async (id) => {
     
     const uneventful = await response.json()
     const passage = uneventful.response
-    console.log('Uneventful passages:', uneventful)
+
     return passage
   } catch (error) {
-    console.error('Error fetching uneventful passages:', error)
+
     return { reports: { incident: [], uneventful: [] } }
   }
 }

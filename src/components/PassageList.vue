@@ -71,6 +71,12 @@ const passagesArray = computed(() => {
 
 <style scoped>
 
+.passage-list{
+  overflow-y: auto; 
+  height: 100%;
+
+}
+
 .passage-count {
   color: #666;
   margin-bottom: 20px;
