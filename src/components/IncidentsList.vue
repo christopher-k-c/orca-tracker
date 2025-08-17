@@ -101,7 +101,7 @@ const incidentsArray = computed(() => {
 }
 
 .interaction-card:hover {
-  background-color: #f8f9fa;
+  background-color: #f1f1f1;
 }
 
 .interaction-card h3 {

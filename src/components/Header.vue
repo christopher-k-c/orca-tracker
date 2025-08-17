@@ -78,4 +78,14 @@ const selectTab = (tab) => {
   background-color: #003366;
   /* font-weight: bold; */
 }
+
+.tab-button:hover {
+  background-color: #003366;
+  color: white;
+}
+
+.tab-button:hover.active {
+  background-color: #003366;
+  color: white;
+}
 </style>
