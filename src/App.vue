@@ -36,7 +36,7 @@ const dateFilters = ref({
 
 // Composable for filtering incidents, takes the allIncidents and dateFilters as arguments
 const { filteredIncidents } = useIncidentFiltering(allIncidents, dateFilters)
-console.log(filteredIncidents)
+// console.log(filteredIncidents)
 
 const handleSelectedPassage = (emittedPassage) => {
   selectedPassage.value = emittedPassage
@@ -46,7 +46,7 @@ const handleSelectedPassage = (emittedPassage) => {
 
 const handleSelectedIncident = (emittedIncident) => {
 
-  console.log(emittedIncident)
+  // console.log(emittedIncident)
   selectedIncident.value = emittedIncident
   // Clear any selected Passage when selecting an Incident
   selectedPassage.value = null

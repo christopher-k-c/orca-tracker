@@ -14,7 +14,7 @@ const emit = defineEmits(['selected-incident'])
 
 const handleIncidentClick = async (id) => {
   const details = await getIncidentDetails(id)
-  console.log("test",details)
+  // console.log("test",details)
   // if (details.status === 'OK') {
     emit('selected-incident', details)
   // }
@@ -71,6 +71,7 @@ const incidentsArray = computed(() => {
   max-height: 100%; 
   /* border: 2px solid #003366; */
   box-sizing: border-box;
+
   
 }
 

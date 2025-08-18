@@ -11,7 +11,7 @@ const props = defineProps({
 })
 
 // let test = Object.values(props.passageSummary).map(incident => {console.log(incident)})/
-console.log(props.passageSummary)
+// console.log(props.passageSummary)
 
 const emit = defineEmits(['selected-passage'])
 

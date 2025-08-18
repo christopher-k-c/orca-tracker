@@ -15,7 +15,7 @@ const props = defineProps({
   },
 })
 
-console.log(props.incident)
+// console.log(props.incident)
 
 </script>
 
@@ -105,6 +105,8 @@ console.log(props.incident)
   margin-bottom: 12px;
   border-bottom: 2px solid #003366;
   padding-bottom: 10px;
+  /* background-color: #003366; */
+
 }
 
 .panel-header h3 {

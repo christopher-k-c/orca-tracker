@@ -15,8 +15,8 @@ const props = defineProps({
     }
 })
 
-let test = Object.values(props.interactionSummary)
-console.log(test)
+// let test = Object.values(props.interactionSummary)
+// console.log(test)
 
 // Manage showList state local to Interactions Container 
 const showList = ref(false)
@@ -60,6 +60,7 @@ const handleClearFilters = () => {
         
         <!-- IncidentsList shows when showList is true -->
         <IncidentsList 
+            class="incidents-list"
             v-show="showList"
             :interactionSummary="interactionSummary"
             @selected-incident="handleSelectedIncident"
@@ -82,6 +83,10 @@ const handleClearFilters = () => {
   position: relative;
 
   overflow: hidden;
+}
+
+.incidents-list{
+  border-radius: 8px;
 }
 
 </style>

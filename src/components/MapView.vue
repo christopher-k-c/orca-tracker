@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted, watch} from 'vue'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
+import 'leaflet.markercluster' 
 import {getIncidentDetails} from '../api/service'
 
 const props = defineProps({
@@ -13,26 +14,18 @@ const props = defineProps({
 
 const emit = defineEmits(['marker-clicked'])
 
-
 const mapElement = ref(null)
 let map = null
-let markers = []
-
+let markerClusterGroup = null
 
 const handleIncidentClick = async (id) => {
   const details = await getIncidentDetails(id)
-  console.log("test",details)
-  // if (details.status === 'OK') {
-    emit('marker-clicked', details)
-  // }
+  // console.log("test",details)
+  emit('marker-clicked', details)
 }
-
-
 
 onMounted(async () => {
   if (mapElement.value) {
-
-    // let response = summaryData.value = await getSummaryData()
     // Create map centered around Gibraltar area
     map = L.map(mapElement.value).setView([36.15, -6.03], 8)
 
@@ -46,16 +39,43 @@ onMounted(async () => {
       attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
     }).addTo(map)
 
+    // Initialize marker cluster group
+    markerClusterGroup = new L.MarkerClusterGroup({
+      chunkedLoading: true,
+      maxClusterRadius: 50, // Distance in pixels to cluster markers
+      spiderfyOnMaxZoom: true, // Spread out markers when max zoom reached
+      showCoverageOnHover: true, // Show cluster area on hover
+      zoomToBoundsOnClick: true, // Zoom to show all markers in cluster
+      iconCreateFunction: function(cluster) {
+        const count = cluster.getChildCount()
+        let className = 'marker-cluster-'
+        
+        if (count < 10) {
+          className += 'small'
+        } else if (count < 100) {
+          className += 'medium'
+        } else {
+          className += 'large'
+        }
+        
+        return L.divIcon({
+          html: '<div><span>' + count + '</span></div>',
+          className: 'marker-cluster ' + className,
+          iconSize: L.point(40, 40)
+        })
+      }
+    })
+    
+    map.addLayer(markerClusterGroup)
     addMarkersToMap()
   }
 })
 
 // Watch for changes in incidents data (when filters change)
 watch(() => props.interactionSummary, () => {
-  if (map) {
+  if (map && markerClusterGroup) {
     clearMarkers()
     addMarkersToMap()
-    
   }
 }, { deep: true })
 
@@ -67,32 +87,26 @@ const addMarkersToMap = () => {
     return
   }
 
-
   Object.entries(props.interactionSummary).forEach(([id, incident]) => {
-    console.log('Creating marker for ID:', id, 'Incident:', incident)
+
     
     const marker = L.marker([incident.lat, incident.long])
-      .addTo(map)
       .bindPopup(`<b>Incident ${incident.serial}</b><br>${incident.time}`)
-    
 
     marker.on('click', () => {
-      console.log('Marker clicked - ID:', id, 'Incident:', incident)
-      // emit('marker-clicked', { id, ...incident })
+
       handleIncidentClick(id)
-
-
     })
     
-    markers.push(marker)
+
+    markerClusterGroup.addLayer(marker)
   })
 }
 
 const clearMarkers = () => {
-  markers.forEach(marker => {
-    map.removeLayer(marker)
-  })
-  markers = []
+  if (markerClusterGroup) {
+    markerClusterGroup.clearLayers()
+  }
 }
 
 onUnmounted(() => {
@@ -100,6 +114,7 @@ onUnmounted(() => {
     map.remove()
     map = null
   }
+  markerClusterGroup = null
 })
 </script>
 
@@ -116,6 +131,7 @@ onUnmounted(() => {
   position: relative;
   height: 80vh; 
   overflow: hidden;
+  border-radius: 8px;
 }
 
 #map-element {
@@ -123,5 +139,29 @@ onUnmounted(() => {
   width: 100%;
   height: 80vh; 
   overflow: hidden;
+}
+
+/* Custom cluster styling */
+:deep(.marker-cluster) {
+  background: rgba(0, 51, 102, 0.8);
+  border: 2px solid #003366;
+  border-radius: 50%;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 36px;
+}
+
+:deep(.marker-cluster-small) {
+  background: rgba(0, 51, 102, 0.6);
+}
+
+:deep(.marker-cluster-medium) {
+  background: rgba(0, 51, 102, 0.8);
+}
+
+:deep(.marker-cluster-large) {
+  background: rgba(0, 51, 102, 1);
 }
 </style>

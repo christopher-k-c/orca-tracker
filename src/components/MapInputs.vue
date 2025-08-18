@@ -15,7 +15,7 @@ const emit = defineEmits(['show-list', 'date-filter-update', 'clear-filters'])
 
 const handleShowList = () => {
   emit('show-list')
-  console.log('showList')
+  // console.log('showList')
 }
 
 // Local state for inputs
