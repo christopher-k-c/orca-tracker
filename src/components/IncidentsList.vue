@@ -97,9 +97,9 @@ const incidentsArray = computed(() => {
   transition: background-color 0.2s ease;
 }
 
-.interaction-card:last-child {
+/* .interaction-card:last-child {
   border-bottom: none;
-}
+} */
 
 .interaction-card:hover {
   background-color: #f1f1f1;

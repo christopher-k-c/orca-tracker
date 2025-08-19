@@ -90,15 +90,18 @@ onMounted(async () => {
 
   <template>
     <div id="app-layout">
-      <Header
+
+      <div class="app-container">
+
+        <Header
         class="header-container"
         :activeTab="activeTab"
         @tab-change="handleTabChange"
         :interactionCount="Object.keys(allIncidents).length"
         :uneventfulCount="Object.keys(uneventfulPassages).length"
       />
-      <div class="app-container">
         <main class="main-content">
+
           <div class="content-area">
             <IncidentsContainer v-show="activeTab === 'interactions'" 
               :interactionSummary="filteredIncidents"
@@ -138,6 +141,15 @@ onMounted(async () => {
 #app-layout {
 
   font-family: Arial, sans-serif;
+
+
+  display: grid;
+  grid-template-rows: auto 1fr; 
+  grid-template-columns: 2fr 1fr;
+  /* min-height: 100vh;  */
+  gap: 1rem; /* Optional spacing */
+
+  /* font-family: Arial, sans-serif;
   background-color: #f0f2f5;
   height: 100%;
   width: 100%;
@@ -146,42 +158,63 @@ onMounted(async () => {
   overflow: hidden;
   background-color: #f0f2f5;
   border-radius: 8px;
-  padding: 20px;
+  padding: 20px; */
 }
 
 .app-container{
+  grid-column: 1 / -1;
 
-  display: flex;
-  flex: 1;
-  gap: 20px;
-  min-height: 0; 
+
 }
 
  .main-content {
 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  min-height: 0;
+/* 
    display: flex;
    flex-grow: 1;
-   overflow: hidden;
+   overflow: hidden; */
+   /* overflow: hidden; */
   
  }
 
  .content-area {
+
+  /* overflow-y: auto;  */
+  min-height: 0; /* Prevents grid items from growing beyond container */
    
-  flex: 1;
+  /* flex: 1;
    overflow: hidden;
-   padding: 0px 20px 0px 0px;
+   padding: 0px 20px 0px 0px; */
    /* border-radius: 8px; */
  }
 
 
+
+
  .details-panel-container {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
 
-   width: 500px;
+   /* width: 500px;
    height: 100%;
-   background-color: #fff;
-   border-left: 1px solid #e0e0e0;
-   /* box-shadow: -4px 2px 2px rgba(0, 0, 0, 0.1); */
-   border-radius: 8px;
 
+
+   border-radius: 8px; */
+
+
+      /* box-shadow: -4px 2px 2px rgba(0, 0, 0, 0.1); */
  }
+
+
+ @media (max-width: 768px) {
+  .main-content {
+    grid-template-columns: 1fr; /* Single column */
+    grid-template-rows: 1fr 1fr; /* Stack vertically */
+  }
+}
 </style>

@@ -129,7 +129,6 @@ onUnmounted(() => {
   height: 100%;
   width: 100%;
   position: relative;
-  height: 80vh; 
   overflow: hidden;
   border-radius: 8px;
 }
@@ -137,7 +136,6 @@ onUnmounted(() => {
 #map-element {
   height: 100%;
   width: 100%;
-  height: 80vh; 
   overflow: hidden;
 }
 

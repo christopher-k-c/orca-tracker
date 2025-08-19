@@ -73,7 +73,7 @@ const passagesArray = computed(() => {
 
 .passage-list{
   overflow-y: auto; 
-  height: 100%;
+  height: 80vh;
 
 }
 
