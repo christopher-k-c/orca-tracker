@@ -86,14 +86,14 @@ const passagesArray = computed(() => {
 .passages-container {
   display: flex;
   flex-direction: column;
-  /* gap: 15px; */
+
 }
 
 .passage-item {
   background-color: #fff;
   border: .5px solid #e0e0e0;
   
-  /* border-radius: 8px 8px 0 0; */
+
   padding: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.2s ease;

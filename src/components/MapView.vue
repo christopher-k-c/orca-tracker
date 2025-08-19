@@ -139,7 +139,7 @@ onUnmounted(() => {
   overflow: hidden;
 }
 
-/* Custom cluster styling */
+
 :deep(.marker-cluster) {
   background: rgba(0, 51, 102, 0.8);
   border: 2px solid #003366;

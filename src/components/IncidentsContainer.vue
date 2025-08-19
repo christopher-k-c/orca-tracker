@@ -82,7 +82,6 @@ const handleClearFilters = () => {
   width: 100%;
   position: relative;
 
-  /* overflow: hidden; */
 }
 
 .incidents-list{

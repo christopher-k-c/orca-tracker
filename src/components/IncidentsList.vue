@@ -69,7 +69,6 @@ const incidentsArray = computed(() => {
 .interactions-list{
   overflow-y: auto; 
   max-height: 100%; 
-  /* border: 2px solid #003366; */
   box-sizing: border-box;
 
   
@@ -79,7 +78,6 @@ const incidentsArray = computed(() => {
   display: flex;
   flex-direction: column;
   gap: 0;
-  /* margin-top: 0px; */
   border: 1px solid #e0e0e0;
   border-radius: 8px;
 
@@ -87,19 +85,14 @@ const incidentsArray = computed(() => {
 }
 
 .interaction-card {
-  /* padding: 15px 20px; */
+
   background: white;
   border-bottom: 1px solid #e0e0e0;
   display: flex;
-  /* align-items: center;
-  justify-content: left; */
+
   flex-direction: column;
   transition: background-color 0.2s ease;
 }
-
-/* .interaction-card:last-child {
-  border-bottom: none;
-} */
 
 .interaction-card:hover {
   background-color: #f1f1f1;
@@ -118,7 +111,7 @@ const incidentsArray = computed(() => {
   margin: 0;
   color: #003366;
   font-size: 14px;
-  /* font-family: monospace; */
+
 }
 
 .no-incidents {

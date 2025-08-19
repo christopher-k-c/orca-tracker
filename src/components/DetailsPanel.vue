@@ -92,12 +92,6 @@ const props = defineProps({
 
 }
 
-
-/* Hide scrollbar for WebKit browsers (Chrome, Safari, Edge) */
-/* .details-panel::-webkit-scrollbar {
-  display: thin;
-} */
-
 .panel-header {
   display: flex;
   justify-content: space-between;
@@ -105,7 +99,7 @@ const props = defineProps({
   margin-bottom: 12px;
   border-bottom: 2px solid #003366;
   padding-bottom: 10px;
-  /* background-color: #003366; */
+
 
 }
 

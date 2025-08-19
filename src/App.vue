@@ -9,8 +9,6 @@ import IncidentsContainer from './components/IncidentsContainer.vue';
 import { useIncidentFiltering } from './composables/filtering'
 
 
-
-
 // Incident/Uneventful ids for counting 
 const allIncidents = ref({})
 const uneventfulPassages = ref({})
@@ -146,19 +144,11 @@ onMounted(async () => {
   display: grid;
   grid-template-rows: auto 1fr; 
   grid-template-columns: 2fr 1fr;
-  /* min-height: 100vh;  */
-  gap: 1rem; /* Optional spacing */
-
-  /* font-family: Arial, sans-serif;
+  gap: 1rem;
   background-color: #f0f2f5;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background-color: #f0f2f5;
+  padding: 20px;
   border-radius: 8px;
-  padding: 20px; */
+
 }
 
 .app-container{
@@ -173,48 +163,27 @@ onMounted(async () => {
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
   min-height: 0;
-/* 
-   display: flex;
-   flex-grow: 1;
-   overflow: hidden; */
-   /* overflow: hidden; */
-  
+
+
  }
 
  .content-area {
-
-  /* overflow-y: auto;  */
-  min-height: 0; /* Prevents grid items from growing beyond container */
+  min-height: 0; 
    
-  /* flex: 1;
-   overflow: hidden;
-   padding: 0px 20px 0px 0px; */
-   /* border-radius: 8px; */
  }
-
-
-
 
  .details-panel-container {
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
 
-   /* width: 500px;
-   height: 100%;
-
-
-   border-radius: 8px; */
-
-
-      /* box-shadow: -4px 2px 2px rgba(0, 0, 0, 0.1); */
  }
 
 
  @media (max-width: 768px) {
   .main-content {
-    grid-template-columns: 1fr; /* Single column */
-    grid-template-rows: 1fr 1fr; /* Stack vertically */
+    grid-template-columns: 1fr; 
+    grid-template-rows: 1fr 1fr; 
   }
 }
 </style>
