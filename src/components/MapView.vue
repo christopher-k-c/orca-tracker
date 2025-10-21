@@ -1,9 +1,13 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch} from 'vue'
-import L from 'leaflet'
+import * as L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet.markercluster' 
 import {getIncidentDetails} from '../api/service'
+
+// import markerIconUrl from "../node_modules/leaflet/dist/images/marker-icon.png";
+// import markerIconRetinaUrl from "../node_modules/leaflet/dist/images/marker-icon-2x.png";
+// import markerShadowUrl from "../node_modules/leaflet/dist/images/marker-shadow.png";
 
 const props = defineProps({
   interactionSummary: {
@@ -38,6 +42,13 @@ onMounted(async () => {
     L.tileLayer("https://tiles.openseamap.org/seamark/{z}/{x}/{y}.png", {
       attribution: 'Map data: &copy; <a href="http://www.openseamap.org">OpenSeaMap</a> contributors'
     }).addTo(map)
+
+
+    // // Hopeful remedy to broken marker 404 (not found) build bug
+    // L.Icon.Default.prototype.options.iconUrl = markerIconUrl;
+    // L.Icon.Default.prototype.options.iconRetinaUrl = markerIconRetinaUrl;
+    // L.Icon.Default.prototype.options.shadowUrl = markerShadowUrl;
+    // L.Icon.Default.imagePath = ""; // necessary to avoid Leaflet adds some prefix to image path.
 
     // Initialize marker cluster group
     markerClusterGroup = new L.MarkerClusterGroup({

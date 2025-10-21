@@ -5,23 +5,21 @@ import { ref, readonly } from 'vue'
 // Get incident summary
 export const getSummaryData = async () => {
 
+  const errorMessage = ref('')
+
+
   try {
-    // console.log('API Config:', { BASE_URL, API_HEADERS })
     
     const response = await fetch(`${BASE_URL}/reportlist?withdetails=true`, {
       method: 'GET',
       headers: API_HEADERS
     });
     
-    // console.log('Response status:', response.status)
-    
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
     const summary = await response.json()
-
-
 
     const incidents = summary.reports;    
     return incidents
