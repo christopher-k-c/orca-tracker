@@ -9,7 +9,17 @@ export default defineConfig({
   plugins: [
     vue(),
     vueDevTools(),
+    
   ],
+  optimizeDeps: {
+    include: ['leaflet']
+  },
+  build: {
+    assetsInlineLimit: 0, 
+    commonjsOptions: {
+      include: [/leaflet/, /node_modules/]
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
